@@ -4,9 +4,20 @@ import genres from './util/genres';
 
 new Vue({
     el: '#app',
+    data: {
+        genre: [],
+        time: []
+    },
     methods: {
-        checkfilter(category, genre, checked) {
-            console.log('Category: ', category, 'Genre: ', genre, 'Checked: ', checked);
+        checkFilter(category, genre, checked) {
+            if (checked) {
+                this[category].push(genre);
+            } else {
+                let index = this[category].indexOf(genre);
+                if (index > -1) {
+                    this[category].splice(index, 1);
+                };
+            };
         }
     },
     components: {
