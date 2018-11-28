@@ -23,7 +23,7 @@ new Vue({
     components: {
         'movie-list': {
             template: `<div id="movie-list">
-                            <div v-for="movie in movies" class="movie">
+                            <div v-for="movie in filteredMovies" class="movie">
                                 {{ movie.title }}
                             </div>
                        </div>`,
@@ -36,7 +36,17 @@ new Vue({
                     ]
                 };
             },
-            props: [ 'genre', 'time' ]
+            props: [ 'genre', 'time' ],
+            methods: {
+                moviePassesGenreFilter(movie) {
+                    this.genre.find(genre => movie.genre === genre)
+                }
+            },
+            computed: {
+                filteredMovies() {
+                    return this.movies.filter(this.moviePassesGenreFilter);
+                }
+            }
         },
         'movie-filter': {
             data() {
